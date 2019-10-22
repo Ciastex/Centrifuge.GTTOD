@@ -30,16 +30,6 @@ namespace Centrifuge.GTTOD
 
             InitializeSettings();
 
-            SceneManager.sceneLoaded += SceneManager_sceneLoaded;
-        }
-
-        private void SceneManager_sceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
-
-            Terminal = new Terminal(Settings);
-            AddCetrifugeSpecificCommands();
-
             try
             {
                 InitializeMixins();
@@ -59,6 +49,16 @@ namespace Centrifuge.GTTOD
                 Logger.Error("Failed to initialize one or more transpilers. Mods will still be loaded, but may not function correctly.");
                 Logger.Exception(e);
             }
+
+            SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+        }
+
+        private void SceneManager_sceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
+
+            Terminal = new Terminal(Settings);
+            AddCetrifugeSpecificCommands();
         }
 
         public void Update()
