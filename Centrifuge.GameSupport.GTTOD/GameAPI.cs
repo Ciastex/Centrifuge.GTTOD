@@ -46,7 +46,7 @@ namespace Centrifuge.GTTOD
             }
             catch (Exception e)
             {
-                Logger.Error("Failed to initialize Game API mix-ins. Mods will still be loaded, but may not function correctly.");
+                Logger.Error("Failed to initialize mix-ins. Mods will still be loaded, but may not function correctly.");
                 Logger.ExceptionSilent(e);
             }
 
