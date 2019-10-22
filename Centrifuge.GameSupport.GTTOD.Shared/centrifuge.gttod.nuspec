@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <tags>game-modding unity-engine modding-sdk modding-framework modding-toolkit sdk gttod get-to-the-orange-door</tags>
     <dependencies>
-      <group targetFramework="net35">
+      <group targetFramework="net40">
         <dependency id="Centrifuge.Mod.SDK" version="1.0.0-alpha" />
       </group>
     </dependencies>
@@ -29,6 +29,12 @@ Initial release of the Centrifuge GSL for Centrifuge.
 
     <file src="../LICENSE.md" target="" />
     
-    <file src="../Centrifuge.GameSupport.GTTOD/bin/Release/GTTOD.GameSupport.dll" target="lib/net35" />
+    <file src="../Centrifuge.GameSupport.GTTOD/bin/Release/GTTOD.GameSupport.dll" target="lib/net40" />
+    
+    <file src="./Binaries/GTTOD/Assembly-CSharp-dev.dll" target="lib/net40" />
+    <file src="./Binaries/UnityEngine/UnityEngine.dll" target="lib/net40" />
+    <file src="./Binaries/UnityEngine/UnityEngine.CoreModule.dll" target="lib/net40" />
+    <file src="./Binaries/UnityEngine/UnityEngine.IMGUIModule.dll" target="lib/net40" />
+    <file src="./Binaries/UnityEngine/UnityEngine.TextRenderingModule.dll" target="lib/net40" />
   </files>
 </package>

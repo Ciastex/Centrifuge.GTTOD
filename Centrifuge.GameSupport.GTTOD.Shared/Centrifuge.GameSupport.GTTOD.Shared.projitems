@@ -9,7 +9,7 @@
     <Import_RootNamespace>Centrifuge.GameSupport.GTTOD.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)Binaries\GTTOD\Assembly-CSharp.dev.dll" />
+    <None Include="$(MSBuildThisFileDirectory)Binaries\GTTOD\Assembly-CSharp-dev.dll" />
     <None Include="$(MSBuildThisFileDirectory)Binaries\UnityEngine\UnityEngine.CoreModule.dll" />
     <None Include="$(MSBuildThisFileDirectory)Binaries\UnityEngine\UnityEngine.dll" />
     <None Include="$(MSBuildThisFileDirectory)Binaries\UnityEngine\UnityEngine.IMGUIModule.dll" />
