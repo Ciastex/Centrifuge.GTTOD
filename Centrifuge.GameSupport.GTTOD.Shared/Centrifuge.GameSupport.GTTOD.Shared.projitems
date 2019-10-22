@@ -14,5 +14,13 @@
     <None Include="$(MSBuildThisFileDirectory)Binaries\UnityEngine\UnityEngine.dll" />
     <None Include="$(MSBuildThisFileDirectory)Binaries\UnityEngine\UnityEngine.IMGUIModule.dll" />
     <None Include="$(MSBuildThisFileDirectory)Binaries\UnityEngine\UnityEngine.TextRenderingModule.dll" />
+    <None Include="$(MSBuildThisFileDirectory)centrifuge.gttod.nuspec" />
+    <None Include="$(MSBuildThisFileDirectory)NuGetScripts\Init.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Mod.template.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)mod.template.json" />
   </ItemGroup>
 </Project>

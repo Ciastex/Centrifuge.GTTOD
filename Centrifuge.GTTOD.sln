@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Centrifuge.GTTOD", "Centrif
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Centrifuge.GTTOD.Shared", "Centrifuge.GameSupport.GTTOD.Shared\Centrifuge.GTTOD.Shared.shproj", "{AD9A0842-E113-47F7-B935-30ED64BC48D4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5AC016B2-72D6-4B9C-88E2-F08FBB3A1D56}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.md = LICENSE.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Centrifuge.GameSupport.GTTOD.Shared\Centrifuge.GameSupport.GTTOD.Shared.projitems*{ad9a0842-e113-47f7-b935-30ed64bc48d4}*SharedItemsImports = 13
