@@ -26,7 +26,7 @@ namespace Centrifuge.GTTOD
         public void Awake()
         {
             DontDestroyOnLoad(gameObject);
-            Logger = new Logger("game_api");
+            Logger = new Logger("gttod_gsl");
 
             InitializeSettings();
 
@@ -84,7 +84,7 @@ namespace Centrifuge.GTTOD
 
         private void InitializeSettings()
         {
-            Settings = new Settings("game_api");
+            Settings = new Settings("gttod_gsl");
 
             Settings.GetOrCreate(Global.ConsoleFontNameSettingsKey, "Lucida Console");
             Settings.GetOrCreate(Global.ConsoleFontSizeSettingsKey, 13);
