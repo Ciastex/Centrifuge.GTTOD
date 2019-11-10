@@ -7,8 +7,8 @@ using Centrifuge.GTTOD.Internal;
 using System;
 using System.Reflection;
 using UnityEngine;
-using Logger = Reactor.API.Logging.Logger;
 using UnityEngine.SceneManagement;
+using Reactor.API.Logging;
 
 namespace Centrifuge.GTTOD
 {
@@ -18,7 +18,7 @@ namespace Centrifuge.GTTOD
         internal const string GttodGameNamespace = "com.github.ciastex/Centrifuge.GTTOD";
 
         private Settings Settings { get; set; }
-        private Logger Logger { get; set; }
+        private Log Log { get; set; }
 
         private HarmonyInstance HarmonyInstance { get; set; }
         private Terminal Terminal { get; set; }
@@ -26,7 +26,7 @@ namespace Centrifuge.GTTOD
         public void Awake()
         {
             DontDestroyOnLoad(gameObject);
-            Logger = new Logger("gttod_gsl");
+            Log = new Log("gttod_gsl");
 
             InitializeSettings();
 
@@ -36,8 +36,8 @@ namespace Centrifuge.GTTOD
             }
             catch (Exception e)
             {
-                Logger.Error("Failed to initialize mix-ins. Mods will still be loaded, but may not function correctly.");
-                Logger.ExceptionSilent(e);
+                Log.Error("Failed to initialize mix-ins. Mods will still be loaded, but may not function correctly.");
+                Log.Exception(e, true);
             }
 
             try
@@ -46,8 +46,8 @@ namespace Centrifuge.GTTOD
             }
             catch (Exception e)
             {
-                Logger.Error("Failed to initialize one or more transpilers. Mods will still be loaded, but may not function correctly.");
-                Logger.Exception(e);
+                Log.Error("Failed to initialize one or more transpilers. Mods will still be loaded, but may not function correctly.");
+                Log.Exception(e, true);
             }
 
             SceneManager.sceneLoaded += SceneManager_sceneLoaded;
@@ -71,12 +71,13 @@ namespace Centrifuge.GTTOD
             CommandTerminal.Terminal.Shell.AddCommand("cnfg_version", (args) =>
             {
                 var reactorAssembly = AssemblyEx.GetAssemblyByName("Reactor");
+                var thisAssembly = Assembly.GetExecutingAssembly();
+
                 var centrifugeAssembly = AssemblyEx.GetAssemblyByName("Centrifuge");
                 var reactorApiAssembly = AssemblyEx.GetAssemblyByName("Reactor.API");
-                var reactorGameApiAssembly = AssemblyEx.GetAssemblyByName("Centrifuge.GTTOD");
 
                 CommandTerminal.Terminal.Log($"Reactor ModLoader version: {reactorAssembly.GetName().Version.ToString()}");
-                CommandTerminal.Terminal.Log($"Reactor GameAPI version: {reactorGameApiAssembly.GetName().Version.ToString()}");
+                CommandTerminal.Terminal.Log($"Reactor GameAPI version: {thisAssembly.GetName().Version.ToString()}");
                 CommandTerminal.Terminal.Log($"Reactor API version: {reactorApiAssembly.GetName().Version.ToString()}");
                 CommandTerminal.Terminal.Log($"Centrifuge version: {centrifugeAssembly.GetName().Version.ToString()}");
             }, 0, -1, "Prints versions of all Centrifuge modules.");
@@ -113,7 +114,7 @@ namespace Centrifuge.GTTOD
                 {
                     var transpiler = (Activator.CreateInstance(type) as GameCodeTranspiler);
 
-                    Logger.Info($"Transpiler: {type.FullName}");
+                    Log.Info($"Transpiler: {type.FullName}");
                     transpiler.Apply(HarmonyInstance);
                 }
             }
