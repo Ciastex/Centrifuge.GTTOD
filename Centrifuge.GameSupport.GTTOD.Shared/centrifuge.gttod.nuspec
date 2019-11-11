@@ -29,7 +29,7 @@ Initial release of the Centrifuge GSL for Centrifuge.
 
     <file src="../LICENSE.md" target="" />
     
-    <file src="../Centrifuge.GameSupport.GTTOD/bin/Release/GTTOD.GameSupport.dll" target="lib/net40" />
+    <file src="../Centrifuge.GameSupport.GTTOD/bin/Release/net40/Centrifuge.GTTOD.dll" target="lib/net40" />
     
     <file src="./Binaries/GTTOD/Assembly-CSharp-dev.dll" target="lib/net40" />
     <file src="./Binaries/UnityEngine/UnityEngine.dll" target="lib/net40" />

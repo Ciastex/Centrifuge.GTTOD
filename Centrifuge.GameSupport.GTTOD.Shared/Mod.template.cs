@@ -5,8 +5,6 @@ using Reactor.API.Attributes;
 using Reactor.API.Interfaces.Systems;
 using UnityEngine;
 
-using Logger = Reactor.API.Logging.Logger;
-
 namespace ExampleNamespace
 {
     [ModEntryPoint(ModID)]
