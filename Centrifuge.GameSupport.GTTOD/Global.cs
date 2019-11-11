@@ -1,4 +1,6 @@
-﻿namespace Centrifuge.GTTOD
+﻿using Centrifuge.GTTOD.ResourceManagement;
+
+namespace Centrifuge.GTTOD
 {
     internal class Global
     {

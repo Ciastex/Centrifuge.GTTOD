@@ -9,6 +9,8 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Reactor.API.Logging;
+using System.Diagnostics;
+using Centrifuge.GTTOD.ResourceManagement;
 
 namespace Centrifuge.GTTOD
 {
@@ -17,18 +19,23 @@ namespace Centrifuge.GTTOD
     {
         internal const string GttodGameNamespace = "com.github.ciastex/Centrifuge.GTTOD";
 
+        internal static Log Log { get; set; }
+
         private Settings Settings { get; set; }
-        private Log Log { get; set; }
+        private PrefabInitializer PrefabInitializer { get; set; }
 
         private HarmonyInstance HarmonyInstance { get; set; }
         private Terminal Terminal { get; set; }
 
-        public void Awake()
+        internal void Awake()
         {
             DontDestroyOnLoad(gameObject);
             Log = new Log("gttod_gsl");
 
             InitializeSettings();
+
+            PrefabInitializer = new PrefabInitializer();
+            PrefabInitializer.HookUpEvent();
 
             try
             {
@@ -50,36 +57,35 @@ namespace Centrifuge.GTTOD
                 Log.Exception(e, true);
             }
 
-            SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+            SceneManager.sceneLoaded += InitializeTerminal;
         }
 
-        private void SceneManager_sceneLoaded(Scene scene, LoadSceneMode mode)
+        internal void Update()
         {
-            SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
+            Terminal.ApplyStyle();
+        }
+
+        private void InitializeTerminal(Scene scene, LoadSceneMode mode)
+        {
+            SceneManager.sceneLoaded -= InitializeTerminal;
 
             Terminal = new Terminal(Settings);
             AddCetrifugeSpecificCommands();
-        }
-
-        public void Update()
-        {
-            Terminal.ApplyStyle();
         }
 
         private void AddCetrifugeSpecificCommands()
         {
             CommandTerminal.Terminal.Shell.AddCommand("cnfg_version", (args) =>
             {
-                var reactorAssembly = AssemblyEx.GetAssemblyByName("Reactor");
-                var thisAssembly = Assembly.GetExecutingAssembly();
+                var thisAssemblyVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+                var reactorVersion = FileVersionInfo.GetVersionInfo(AssemblyEx.GetAssemblyByName("Reactor").Location);
+                var centrifugeVersion = FileVersionInfo.GetVersionInfo(AssemblyEx.GetAssemblyByName("Centrifuge").Location);
+                var reactorApiVersion = FileVersionInfo.GetVersionInfo(AssemblyEx.GetAssemblyByName("Reactor.API").Location);
 
-                var centrifugeAssembly = AssemblyEx.GetAssemblyByName("Centrifuge");
-                var reactorApiAssembly = AssemblyEx.GetAssemblyByName("Reactor.API");
-
-                CommandTerminal.Terminal.Log($"Reactor ModLoader version: {reactorAssembly.GetName().Version.ToString()}");
-                CommandTerminal.Terminal.Log($"Reactor GameAPI version: {thisAssembly.GetName().Version.ToString()}");
-                CommandTerminal.Terminal.Log($"Reactor API version: {reactorApiAssembly.GetName().Version.ToString()}");
-                CommandTerminal.Terminal.Log($"Centrifuge version: {centrifugeAssembly.GetName().Version.ToString()}");
+                CommandTerminal.Terminal.Log($"Centrifuge Bootstrap version: {centrifugeVersion}");
+                CommandTerminal.Terminal.Log($"Reactor API version: {reactorApiVersion}");
+                CommandTerminal.Terminal.Log($"Reactor version: {reactorVersion}\n");
+                CommandTerminal.Terminal.Log($"GTTOD GSL version: {thisAssemblyVersion}");
             }, 0, -1, "Prints versions of all Centrifuge modules.");
         }
 
