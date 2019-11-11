@@ -16,9 +16,7 @@
       </group>
     </dependencies>
 
-    <releaseNotes>
-Initial release of the Centrifuge GSL for Centrifuge.
-    </releaseNotes>
+    <releaseNotes>Release updated for Centrifuge 1.2.0.</releaseNotes>
   </metadata>
 
   <files>
