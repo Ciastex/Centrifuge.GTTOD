@@ -1,56 +1,35 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{692A3FA4-9174-46D4-A8CF-24047803DDD9}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Centrifuge.GTTOD</RootNamespace>
-    <AssemblyName>GTTOD.GameSupport</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <AssemblyName>Centrifuge.GTTOD</AssemblyName>
+    <AssemblyTitle>Centrifuge.GTTOD</AssemblyTitle>
+    <TargetFramework>net40</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Company>Centrifuge Developers</Company>
+    <Product>Centrifuge.GTTOD</Product>
+    <FileVersion>0.4.0</FileVersion>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
+  
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  
   <ItemGroup>
-    <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lib.Harmony.1.2.0.1\lib\net35\0Harmony.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Centrifuge.Mod.SDK" Version="1.2.0" />
+    <PackageReference Include="Lib.Harmony" Version="1.2.0.1" />
+    <PackageReference Include="LitJson" Version="0.15.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <Reference Include="Assembly-CSharp-dev">
       <HintPath>..\Centrifuge.GameSupport.GTTOD.Shared\Binaries\GTTOD\Assembly-CSharp-dev.dll</HintPath>
     </Reference>
-    <Reference Include="LitJSON, Version=0.15.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LitJson.0.15.0\lib\net40\LitJSON.dll</HintPath>
-    </Reference>
-    <Reference Include="Reactor.API, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Centrifuge.Mod.SDK.1.2.0\lib\net35\Reactor.API.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
       <HintPath>..\Centrifuge.GameSupport.GTTOD.Shared\Binaries\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -64,37 +43,4 @@
       <HintPath>..\Centrifuge.GameSupport.GTTOD.Shared\Binaries\UnityEngine\UnityEngine.TextRenderingModule.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="EnemyChatter.cs" />
-    <Compile Include="Events\Args\EnemyDeathEventArgs.cs" />
-    <Compile Include="Events\Args\MethodPreviewEventArgs.cs" />
-    <Compile Include="Events\Args\TerminalStateEventArgs.cs" />
-    <Compile Include="Events\Args\TerminalStyleEventArgs.cs" />
-    <Compile Include="Events\Args\TypeInstanceEventArgs.cs" />
-    <Compile Include="Events\Args\WeaponFireEventArgs.cs" />
-    <Compile Include="Events\EnemyNPC.cs" />
-    <Compile Include="Events\Game.cs" />
-    <Compile Include="Events\Player.cs" />
-    <Compile Include="Events\Weapon.cs" />
-    <Compile Include="GameAPI.cs" />
-    <Compile Include="Global.cs" />
-    <Compile Include="Infrastructure\GameCodeTranspiler.cs" />
-    <Compile Include="Internal\Terminal.cs" />
-    <Compile Include="Mixins\GTTODManagerMixins.cs" />
-    <Compile Include="Mixins\MenuScriptMixins.cs" />
-    <Compile Include="Mixins\TerminalMixins.cs" />
-    <Compile Include="Mixins\WeaponScriptMixins.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Transpilers\AITalker.Start.cs" />
-    <Compile Include="Transpilers\EnemyNPC.Drone.Die.cs" />
-    <Compile Include="Transpilers\EnemyNPC.Infantry.Die.cs" />
-    <Compile Include="Transpilers\EnemyNPC.TurretCrab.Die.cs" />
-    <Compile Include="Transpilers\Game.StartGame.cs" />
-    <Compile Include="Transpilers\WeaponScript.PrimaryFire.cs" />
-    <Compile Include="Transpilers\WeaponScript.SecondaryFire.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

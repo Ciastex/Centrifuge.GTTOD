@@ -1,5 +1,5 @@
-﻿using Reactor.API.Configuration;
-using Centrifuge.GTTOD.Events.Args;
+﻿using Centrifuge.GTTOD.Events.Args;
+using Reactor.API.Configuration;
 using System;
 using UnityEngine;
 using GttodTerminal = CommandTerminal.Terminal;
