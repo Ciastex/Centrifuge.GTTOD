@@ -1,6 +1,6 @@
-﻿using Harmony;
-using Centrifuge.GTTOD.Events;
-using Centrifuge.GTTOD.Infrastructure;
+﻿using Centrifuge.GTTOD.Events;
+using Harmony;
+using Reactor.API.Runtime.Patching;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
