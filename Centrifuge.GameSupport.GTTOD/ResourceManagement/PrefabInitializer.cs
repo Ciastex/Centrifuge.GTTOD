@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Reactor.API.Logging;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -10,6 +11,8 @@ namespace Centrifuge.GTTOD.ResourceManagement
     {
         private Dictionary<string, Scene> Scenes { get; }
         private int PreviousCount { get; set; }
+
+        private Log Log => LogManager.GetForCurrentAssembly();
 
         internal PrefabInitializer()
         {
@@ -40,16 +43,16 @@ namespace Centrifuge.GTTOD.ResourceManagement
                 if (GttodAssets.Instance.HasAsset(o.name))
                     continue;
 
-                GameAPI.Log.Info($"Registering prefab: {o.name}");
+                Log.Info($"Registering prefab: {o.name}");
                 GttodAssets.Instance.AddAsset(o);
             }
 
-            if (PreviousCount != GttodAssets.Instance.TotalAssets())
+            if (PreviousCount != GttodAssets.Instance.TotalAssets)
             {
                 GttodAssets.Instance.OnAssetsInitialized(scene);
-                GameAPI.Log.Info($"Discovered and registered {GttodAssets.Instance.TotalAssets()} new prefabs from scene '{scene.name}'.");
+                Log.Debug($"Discovered and registered {GttodAssets.Instance.TotalAssets} new prefabs from scene '{scene.name}'.");
             }
-            PreviousCount = GttodAssets.Instance.TotalAssets();
+            PreviousCount = GttodAssets.Instance.TotalAssets;
         }
     }
 }

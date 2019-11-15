@@ -1,37 +1,33 @@
-﻿using Harmony;
+﻿using Centrifuge.GTTOD.Internal;
+using Centrifuge.GTTOD.ResourceManagement;
 using Reactor.API.Attributes;
 using Reactor.API.Configuration;
 using Reactor.API.Extensions;
-using Centrifuge.GTTOD.Infrastructure;
-using Centrifuge.GTTOD.Internal;
+using Reactor.API.Interfaces.Systems;
+using Reactor.API.Logging;
+using Reactor.API.Runtime.Patching;
 using System;
+using System.Diagnostics;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Reactor.API.Logging;
-using System.Diagnostics;
-using Centrifuge.GTTOD.ResourceManagement;
 
 namespace Centrifuge.GTTOD
 {
-    [GameSupportLibraryEntryPoint(GttodGameNamespace)]
+    [GameSupportLibraryEntryPoint(GttodGameNamespace, AwakeAfterInitialize = true)]
     internal sealed class GameAPI : MonoBehaviour
     {
         internal const string GttodGameNamespace = "com.github.ciastex/Centrifuge.GTTOD";
 
-        internal static Log Log { get; set; }
+        private Log Log => LogManager.GetForCurrentAssembly();
 
         private Settings Settings { get; set; }
         private PrefabInitializer PrefabInitializer { get; set; }
 
-        private HarmonyInstance HarmonyInstance { get; set; }
         private Terminal Terminal { get; set; }
 
-        internal void Awake()
+        public void Initialize(IManager manager)
         {
-            DontDestroyOnLoad(gameObject);
-            Log = new Log("gttod_gsl");
-
             InitializeSettings();
 
             PrefabInitializer = new PrefabInitializer();
@@ -39,22 +35,22 @@ namespace Centrifuge.GTTOD
 
             try
             {
-                InitializeMixins();
+                RuntimePatcher.AutoPatch();
             }
             catch (Exception e)
             {
                 Log.Error("Failed to initialize mix-ins. Mods will still be loaded, but may not function correctly.");
-                Log.Exception(e, true);
+                Log.Exception(e);
             }
 
             try
             {
-                InitializeTranspilers();
+                RuntimePatcher.RunTranspilers();
             }
             catch (Exception e)
             {
                 Log.Error("Failed to initialize one or more transpilers. Mods will still be loaded, but may not function correctly.");
-                Log.Exception(e, true);
+                Log.Exception(e);
             }
 
             SceneManager.sceneLoaded += InitializeTerminal;
@@ -82,11 +78,11 @@ namespace Centrifuge.GTTOD
                 var centrifugeVersion = FileVersionInfo.GetVersionInfo(AssemblyEx.GetAssemblyByName("Centrifuge").Location);
                 var reactorApiVersion = FileVersionInfo.GetVersionInfo(AssemblyEx.GetAssemblyByName("Reactor.API").Location);
 
-                CommandTerminal.Terminal.Log($"Centrifuge Bootstrap version: {centrifugeVersion}");
-                CommandTerminal.Terminal.Log($"Reactor API version: {reactorApiVersion}");
-                CommandTerminal.Terminal.Log($"Reactor version: {reactorVersion}\n");
-                CommandTerminal.Terminal.Log($"GTTOD GSL version: {thisAssemblyVersion}");
-            }, 0, -1, "Prints versions of all Centrifuge modules.");
+                CommandTerminal.Terminal.Log(centrifugeVersion.ToString());
+                CommandTerminal.Terminal.Log(reactorApiVersion.ToString());
+                CommandTerminal.Terminal.Log(reactorVersion.ToString());
+                CommandTerminal.Terminal.Log(thisAssemblyVersion.ToString());
+            }, 0, -1, "Prints versions of all core Centrifuge modules.");
         }
 
         private void InitializeSettings()
@@ -101,29 +97,6 @@ namespace Centrifuge.GTTOD
 
             if (Settings.Dirty)
                 Settings.Save();
-        }
-
-        private void InitializeMixins()
-        {
-            HarmonyInstance = HarmonyInstance.Create(GttodGameNamespace);
-            HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
-        }
-
-        private void InitializeTranspilers()
-        {
-            var asm = Assembly.GetExecutingAssembly();
-            var types = asm.GetTypes();
-
-            foreach (var type in types)
-            {
-                if (typeof(GameCodeTranspiler).IsAssignableFrom(type) && type != typeof(GameCodeTranspiler))
-                {
-                    var transpiler = (Activator.CreateInstance(type) as GameCodeTranspiler);
-
-                    Log.Info($"Transpiler: {type.FullName}");
-                    transpiler.Apply(HarmonyInstance);
-                }
-            }
         }
     }
 }
