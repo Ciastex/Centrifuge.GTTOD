@@ -7,6 +7,10 @@ namespace Centrifuge.GTTOD.Events
     {
         public static event EventHandler<MethodPreviewEventArgs<WeaponScript>> PreviewAwake;
         public static event EventHandler<TypeInstanceEventArgs<WeaponScript>> AwakeComplete;
+
+        public static event EventHandler<MethodPreviewEventArgs<WeaponScript>> PreviewPrimaryShot;
+        public static event EventHandler<MethodPreviewEventArgs<WeaponScript>> PreviewSecondaryShot;
+
         public static event EventHandler<WeaponFireEventArgs> ShotFired;
 
         internal static void InvokePreviewAwake(MethodPreviewEventArgs<WeaponScript> e)
@@ -15,11 +19,17 @@ namespace Centrifuge.GTTOD.Events
         internal static void InvokeAwakeComplete(TypeInstanceEventArgs<WeaponScript> e)
             => AwakeComplete?.Invoke(null, e);
 
-        internal static void InvokeShotFiredPrimary(WeaponScript weapon)
-            => ShotFired?.Invoke(null, new WeaponFireEventArgs(weapon.gameObject) { IsPrimaryFire = true });
+        internal static void InvokePreviewShotFiredPrimary(MethodPreviewEventArgs<WeaponScript> e)
+            => PreviewPrimaryShot?.Invoke(null, e);
 
-        internal static void InvokeShotFiredSecondary(WeaponScript weapon)
-            => ShotFired?.Invoke(null, new WeaponFireEventArgs(weapon.gameObject) { IsPrimaryFire = false });
+        internal static void InvokePreviewShotFiredSecondary(MethodPreviewEventArgs<WeaponScript> e)
+            => PreviewSecondaryShot?.Invoke(null, e);
+
+        internal static void InvokeShotFiredPrimary(WeaponScript weapon, int burstCount)
+            => ShotFired?.Invoke(null, new WeaponFireEventArgs(weapon.gameObject) { IsPrimaryFire = true, BurstCount = burstCount });
+
+        internal static void InvokeShotFiredSecondary(WeaponScript weapon, int burstCount)
+            => ShotFired?.Invoke(null, new WeaponFireEventArgs(weapon.gameObject) { IsPrimaryFire = false, BurstCount = burstCount });
     }
 }
 

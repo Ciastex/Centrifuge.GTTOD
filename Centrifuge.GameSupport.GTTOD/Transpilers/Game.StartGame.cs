@@ -10,13 +10,13 @@ namespace Centrifuge.GTTOD.Transpilers
     {
         private class StartGame : GameCodeTranspiler
         {
-            private const int EventHookOpCodeIndex = 107;
-            private const string StartGameCoroutineClassName = "<StartGame>d__78";
+            private const int EventHookOpCodeIndex = 290;
+            private const string StartGameCoroutineClassName = "<StartSceneFade>d__69";
 
             private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instr)
             {
                 var modified = new List<CodeInstruction>(instr);
-
+                    
                 var invoker = typeof(Events.Game).GetMethod(
                     nameof(Events.Game.InvokeGameModeStarted),
                     BindingFlags.NonPublic | BindingFlags.Static

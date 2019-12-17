@@ -21,4 +21,42 @@ namespace Centrifuge.GTTOD.Mixins
             Weapon.InvokeAwakeComplete(eventArgs);
         }
     }
+
+    [HarmonyPatch(typeof(WeaponScript), "NewPrimaryFire")]
+    internal class WeaponScriptNewPrimaryFireMixins
+    {
+        public static bool Prefix(WeaponScript __instance, int BurstCount)
+        {
+            var eventArgs = new MethodPreviewEventArgs<WeaponScript>(__instance);
+            eventArgs.AdditionalData[nameof(BurstCount)] = BurstCount;
+
+            Weapon.InvokePreviewShotFiredPrimary(eventArgs);
+
+            return !eventArgs.Cancel;
+        }
+
+        public static void Postfix(WeaponScript __instance, int BurstCount)
+        {
+            Weapon.InvokeShotFiredPrimary(__instance, BurstCount);
+        }
+    }
+
+    [HarmonyPatch(typeof(WeaponScript), "NewSecondaryFire")]
+    internal class WeaponScriptNewSecondaryFireMixins
+    {
+        public static bool Prefix(WeaponScript __instance, int BurstCount)
+        {
+            var eventArgs = new MethodPreviewEventArgs<WeaponScript>(__instance);
+            eventArgs.AdditionalData[nameof(BurstCount)] = BurstCount;
+
+            Weapon.InvokePreviewShotFiredSecondary(eventArgs);
+
+            return !eventArgs.Cancel;
+        }
+
+        public static void Postfix(WeaponScript __instance, int BurstCount)
+        {
+            Weapon.InvokeShotFiredSecondary(__instance, BurstCount);
+        }
+    }
 }

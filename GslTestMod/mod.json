@@ -1,0 +1,10 @@
+﻿{
+  "FriendlyName": "GslTestMod",
+  "Author": "Ciastex",
+  "Contact": "Discord // Ciastex#6170",
+  "ModuleFileName": "GslTestMod.dll",
+  "Dependencies": [],
+  "RequiredGSLs": [ "com.github.ciastex/Centrifuge.GTTOD" ],
+  "SkipLoad": false,
+  "Priority": 10
+}
