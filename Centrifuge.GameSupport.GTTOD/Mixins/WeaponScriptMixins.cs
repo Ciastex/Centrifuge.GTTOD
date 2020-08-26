@@ -1,6 +1,6 @@
-﻿using Harmony;
-using Centrifuge.GTTOD.Events;
+﻿using Centrifuge.GTTOD.Events;
 using Centrifuge.GTTOD.Events.Args;
+using HarmonyLib;
 
 namespace Centrifuge.GTTOD.Mixins
 {

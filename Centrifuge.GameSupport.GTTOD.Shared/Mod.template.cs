@@ -23,5 +23,12 @@ namespace ExampleNamespace
         {
 
         }
+        
+        public void Load()
+        {
+          // This will run after the first scene loads.
+          // It will only be run once and guarantees
+          // safe texture loading etc.
+        }
     }
 }

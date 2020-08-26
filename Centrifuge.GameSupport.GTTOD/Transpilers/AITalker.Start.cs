@@ -1,7 +1,7 @@
-﻿using Harmony;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
+using HarmonyLib;
 using Reactor.API.Runtime.Patching;
 
 namespace Centrifuge.GTTOD.Transpilers
@@ -28,7 +28,7 @@ namespace Centrifuge.GTTOD.Transpilers
                 return modified;
             }
 
-            public override void Apply(HarmonyInstance harmony)
+            public override void Apply(Harmony harmony)
             {
                 var targetMethod = typeof(global::AITalker).GetMethod(
                     nameof(global::AITalker.Start),

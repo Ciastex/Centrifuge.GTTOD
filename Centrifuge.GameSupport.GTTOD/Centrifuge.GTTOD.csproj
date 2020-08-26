@@ -6,10 +6,13 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Company>Centrifuge Developers</Company>
     <Product>Centrifuge.GTTOD</Product>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
-    <FileVersion>1.0.1</FileVersion>
-    <Version>1.0.1</Version>
     <OutputPath>bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>2.0.0</FileVersion>
+    <Version>2.0.0</Version>
   </PropertyGroup>
   
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -19,12 +22,6 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="Centrifuge.Mod.SDK" Version="2.2.0" />
-    <PackageReference Include="Lib.Harmony" Version="1.2.0.1" />
-    <PackageReference Include="LitJson" Version="0.15.0" />
-  </ItemGroup>
   
   <ItemGroup>
     <Reference Include="Assembly-CSharp-dev">
@@ -44,5 +41,9 @@
     <Reference Include="UnityEngine.TextRenderingModule">
       <HintPath>..\Centrifuge.GameSupport.GTTOD.Shared\Binaries\UnityEngine\UnityEngine.TextRenderingModule.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Centrifuge.Mod.SDK" Version="3.2.0" />
   </ItemGroup>
 </Project>

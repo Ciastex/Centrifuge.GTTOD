@@ -2,21 +2,21 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Centrifuge.GameSupport.GTTOD</id>
-    <version>1.0.1</version>
+    <version>2.0.0</version>
     <description>Centrifuge Game Support Library for Get To The Orange Door mod development</description>
     <authors>Ciastex</authors>
     <license type="file">LICENSE.md</license>
     <repository type="git" url="https://github.com/Ciastex/Centrifuge.GTTOD.git" branch="develop" />
     <projectUrl>https://github.com/Ciastex/Centrifuge.GTTOD</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <tags>game-modding unity-engine modding-sdk modding-framework modding-toolkit sdk gttod get-to-the-orange-door</tags>
+    <tags>game-modding centrifuge unity-engine modding-sdk modding-framework modding-toolkit sdk gttod get-to-the-orange-door</tags>
     <dependencies>
       <group targetFramework="net40">
-        <dependency id="Centrifuge.Mod.SDK" version="2.2.0" />
+        <dependency id="Centrifuge.Mod.SDK" version="3.2.1" />
       </group>
     </dependencies>
 
-    <releaseNotes>Release updated for Centrifuge 2.2</releaseNotes>
+    <releaseNotes>Release updated for Centrifuge 3.2.1</releaseNotes>
   </metadata>
 
   <files>
@@ -33,6 +33,7 @@
     <file src="./Binaries/UnityEngine/UnityEngine.dll" target="lib/net40" />
     <file src="./Binaries/UnityEngine/UnityEngine.CoreModule.dll" target="lib/net40" />
     <file src="./Binaries/UnityEngine/UnityEngine.IMGUIModule.dll" target="lib/net40" />
+    <file src="./Binaries/UnityEngine/UnityEngine.TextCoreModule.dll" target="lib/net40" />
     <file src="./Binaries/UnityEngine/UnityEngine.TextRenderingModule.dll" target="lib/net40" />
   </files>
 </package>

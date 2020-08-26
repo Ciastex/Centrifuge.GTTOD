@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Mod.template.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Binaries\UnityEngine\UnityEngine.TextCoreModule.dll" />
     <Content Include="$(MSBuildThisFileDirectory)mod.template.json" />
   </ItemGroup>
 </Project>

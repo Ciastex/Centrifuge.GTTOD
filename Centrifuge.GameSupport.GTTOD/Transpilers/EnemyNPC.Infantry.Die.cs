@@ -1,8 +1,8 @@
-﻿using Harmony;
-using Reactor.API.Runtime.Patching;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
+using HarmonyLib;
+using Reactor.API.Runtime.Patching;
 
 namespace Centrifuge.GTTOD.Transpilers
 {
@@ -10,7 +10,7 @@ namespace Centrifuge.GTTOD.Transpilers
     {
         private class InfantryDie : GameCodeTranspiler
         {
-            private const int EventHookOpIndex = 63;
+            private const int EventHookOpIndex = 81;
 
             private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instr)
             {
@@ -27,7 +27,7 @@ namespace Centrifuge.GTTOD.Transpilers
                 return modified;
             }
 
-            public override void Apply(HarmonyInstance harmony)
+            public override void Apply(Harmony harmony)
             {
                 var targetMethod = typeof(Infantry).GetMethod(
                     nameof(Infantry.Die),

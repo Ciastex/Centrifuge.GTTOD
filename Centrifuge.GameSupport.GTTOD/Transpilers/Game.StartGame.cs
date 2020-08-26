@@ -1,8 +1,8 @@
-﻿using Harmony;
-using Reactor.API.Runtime.Patching;
+﻿using Reactor.API.Runtime.Patching;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
+using HarmonyLib;
 
 namespace Centrifuge.GTTOD.Transpilers
 {
@@ -10,7 +10,7 @@ namespace Centrifuge.GTTOD.Transpilers
     {
         private class StartGame : GameCodeTranspiler
         {
-            private const int EventHookOpCodeIndex = 290;
+            private const int EventHookOpCodeIndex = 297;
             private const string StartGameCoroutineClassName = "<StartSceneFade>d__69";
 
             private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instr)
@@ -27,7 +27,7 @@ namespace Centrifuge.GTTOD.Transpilers
                 return modified;
             }
 
-            public override void Apply(HarmonyInstance harmony)
+            public override void Apply(Harmony harmony)
             {
                 var targetMethod = typeof(global::GTTODManager).GetNestedType(
                     StartGameCoroutineClassName,
